@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>Discord絵文字メーカー</title>
+        <!-- 日本語フォント -->
+         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700&display=swap" rel="stylesheet">
+         <style>
+            body { font-family: sans-serif; text-align: center; margin: 20px; }
+            canvas { border: 1px solid #ccc; margin-top: 10px; }
+            input, button { margin: 5px; }
+         </style>
+    </head>
+    <body>
+        <h1>Discord絵文字メーカー</h1>
+
+        <input id="textInput" type="text" placeholder="絵文字を入力" value="OK"><br>
+        <label>色: <input id="colorInput" type="color" value="#000000"></label><br>
+        <label>絵文字名 (日本語、英数字と_のみ): <input id="nameInput" type="text" value="emoji_ok"></label><br>
+
+        <button onclick="generate()">プレビュー生成</button>
+        <button onclick="download()">ダウンロード</button>
+
+        <br>
+        <canvas id="canvas" width="128" height="128"></canvas>
+
+        <script>
+            const canvas = document.getElementById("canvas");
+            const ctx = canvas.getContext("2d");
+
+            function generate() {
+                const text = document.getElementById("textInput").value;
+                const color = document.getElementById("colorInput").value;
+
+                // クリア & 背景透過
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // 文字描画
+                ctx.font = "bold 48px 'Noto Sans JP', sans-serif";
+                ctf.fillStyle = color;
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+            }
+
+            function download() {
+                const name = document.getElementById("nameInput").value;
+                const validName = /^[a-zA-Z0-9_]{2,}$/.test(name);
+                if (!validName) {
+                    alert("⚠️ 絵文字名は2文字以上の英数字と_のみ使用可能です。");
+                    return;
+                }
+
+                const link = document.createElement("a");
+                link.download = name + ".png";
+                link.href = canvas.toDataURL("image/png");
+                link.click();
+            }
+
+            // 初期プレビュー生成
+            generate();
+        </script>
+    </body>
+</html>
