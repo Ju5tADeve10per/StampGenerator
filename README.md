@@ -1,0 +1,2 @@
+# StampGenerator
+Generate Character Stamp
