@@ -8,15 +8,24 @@
          <style>
             body { font-family: sans-serif; text-align: center; margin: 20px; }
             canvas { border: 1px solid #ccc; margin-top: 10px; }
-            input, button { margin: 5px; }
+            input[type="text"] {
+                width: 300px;
+                height: 30px;
+                font-size: 14px;
+                padding: 4px 6px;
+                margin: 5px;
+            }
+            button {
+                margin: 5px;
+            }
          </style>
     </head>
     <body>
         <h1>Discord絵文字メーカー</h1>
 
-        <input id="textInput" type="text" placeholder="絵文字を入力" value="OK"><br>
+        <input id="textInput" type="text" placeholder="テキストでスタンプにしたい言葉を入力" value="OK"><br>
         <label>色: <input id="colorInput" type="color" value="#000000"></label><br>
-        <label>絵文字名 (日本語、英数字と_のみ): <input id="nameInput" type="text" value="emoji_ok"></label><br>
+        <label>保存するファイル名 (英数字と_のみ): <input id="fileNameInput" type="text" value="emoji_ok"></label><br>
 
         <button onclick="generate()">プレビュー生成</button>
         <button onclick="download()">ダウンロード</button>
@@ -37,14 +46,14 @@
 
                 // 文字描画
                 ctx.font = "bold 48px 'Noto Sans JP', sans-serif";
-                ctf.fillStyle = color;
+                ctx.fillStyle = color;
                 ctx.textAlign = "center";
                 ctx.textBaseline = "middle";
                 ctx.fillText(text, canvas.width / 2, canvas.height / 2);
             }
 
             function download() {
-                const name = document.getElementById("nameInput").value;
+                const name = document.getElementById("fileNameInput").value;
                 const validName = /^[a-zA-Z0-9_]{2,}$/.test(name);
                 if (!validName) {
                     alert("⚠️ 絵文字名は2文字以上の英数字と_のみ使用可能です。");
