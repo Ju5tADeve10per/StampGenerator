@@ -17,16 +17,25 @@
             }
             button {
                 margin: 5px;
+                padding: 6px 12px;
+                font-size: 14px;
             }
+            label { display: block; margin-top: 10px; }
          </style>
     </head>
     <body>
         <h1>Discord絵文字メーカー</h1>
 
-        <input id="textInput" type="text" placeholder="テキストでスタンプにしたい言葉を入力" value="OK"><br>
-        <label>色: <input id="colorInput" type="color" value="#000000"></label><br>
-        <label>保存するファイル名 (英数字と_のみ): <input id="fileNameInput" type="text" value="emoji_ok"></label><br>
+        <label for="textInput">テキストでスタンプにしたい言葉を入力</label>
+        <input id="textInput" type="text" value="OK">
 
+        <label for="colorInput">色を選択:</label>
+        <input id="colorInput" type="color" value="#000000">
+
+        <label for="fileNameInput">保存するファイル名 (英数字と_のみ):</label>
+        <input id="fileNameInput" type="text" value="emoji_ok">
+
+        <br>
         <button onclick="generate()">プレビュー生成</button>
         <button onclick="download()">ダウンロード</button>
 
